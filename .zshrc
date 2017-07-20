@@ -33,6 +33,47 @@ esac
 
 
 
+# ----------------------------------------------------------------------
+# misc options:
+# ----------------------------------------------------------------------
+# for some reason some of these options need to be called at the beginning
+#   for history searching to work right (TODO: figure that out)
+
+# use in vim mode
+bindkey -v
+
+# beep on error in zle
+setopt beep
+
+# DON'T:
+#   cd into a directory with "$ valid-dir" (instead of "$ cd valid-dir") 
+#   if "valid-dir" is not a normal command
+unsetopt auto_cd
+
+# treat the "#", "~" and "^" characters as part of patterns for filename generation, etc
+#   (An initial unquoted "~" always produces named directory expansion)
+setopt extended_glob
+
+# if a pattern for filename generation has no matches, print an error,
+#   instead of leaving it unchanged in the argument list.
+#   this also applies to file expansion of an initial "~" or "="
+setopt nomatch
+
+# report the status of background jobs immediately, rather than waiting until
+#   just before printing a prompt
+setopt notify
+
+
+# make less more friendly for non-text input files, see lesspipe(1) (from .bashrc)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+watch=notme
+export LOGCHECK=60
+
+
+
+export PATH="$PATH:$HOME/.local/bin"
+
 
 
 
@@ -199,43 +240,4 @@ autoload -Uz compinit
 compinit
 
 
-
-# ----------------------------------------------------------------------
-# misc options:
-# ----------------------------------------------------------------------
-
-# use in vim mode
-bindkey -v
-
-# beep on error in zle
-setopt beep
-
-# DON'T:
-#   cd into a directory with "$ valid-dir" (instead of "$ cd valid-dir") 
-#   if "valid-dir" is not a normal command
-unsetopt auto_cd
-
-# treat the "#", "~" and "^" characters as part of patterns for filename generation, etc
-#   (An initial unquoted "~" always produces named directory expansion)
-setopt extended_glob
-
-# if a pattern for filename generation has no matches, print an error,
-#   instead of leaving it unchanged in the argument list.
-#   this also applies to file expansion of an initial "~" or "="
-setopt nomatch
-
-# report the status of background jobs immediately, rather than waiting until
-#   just before printing a prompt
-setopt notify
-
-
-# make less more friendly for non-text input files, see lesspipe(1) (from .bashrc)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-watch=notme
-export LOGCHECK=60
-
-
-
-export PATH="$PATH:$HOME/.local/bin"
 
