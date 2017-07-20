@@ -11,24 +11,47 @@
 #
 # Remember to always check your TODO's! :)
 #
-# Last updated: 2017-07-19
+# Last updated: 2017-07-20
+# ----------------------------------------------------------------------
+
+
+# +-------------------------------------+
+# |          TABLE OF CONTENTS          |
+# +-------------------------------------+
+#   skip everything for non-interactive shells
+#   misc options
+#   enable help
+#   history
+#   prompt themes
+#   enable some color support
+#   ease of use aliases and functions
+#   set default editor
+#   make some things less dangerous
+#   completion options
 #
 
-
-# Skip everything for non-interactive shells (from .bashrc)
-case $- in
-    *i*) ;;
-      *) return ;;
-esac
-# better than the following?
-#[[ -z "$PS1" ]] && return
-
-
-# a note on "autoload" syntax:
+# ----------------------------------------------------------------------
+# a brief note on "autoload" syntax:
 #   "autoload": marks a name as being a function rather than an external program
 #   "-U": marks the function for autoloading and suppresses alias expansion
 #   "-z": means use zsh (rather than ksh) style
 # (pretty much always use "autoload -Uz")
+# ----------------------------------------------------------------------
+
+
+
+
+
+
+# ----------------------------------------------------------------------
+# skip everything for non-interactive shells
+# ----------------------------------------------------------------------
+# taken from from .bashrc
+case "$-" in
+    *i*) ;;
+      *) return ;;
+esac
+# better than "[[ -z "$PS1" ]] && return"?
 
 
 
@@ -57,7 +80,7 @@ setopt extended_glob
 # if a pattern for filename generation has no matches, print an error,
 #   instead of leaving it unchanged in the argument list.
 #   this also applies to file expansion of an initial "~" or "="
-setopt nomatch
+setopt no_match
 
 # report the status of background jobs immediately, rather than waiting until
 #   just before printing a prompt
@@ -67,9 +90,13 @@ setopt notify
 # make less more friendly for non-text input files, see lesspipe(1) (from .bashrc)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-watch=notme
-export LOGCHECK=60
+# watch other users
+#watch=notme
+#export LOGCHECK=60
 
+
+# say how long a command took if more than __ seconds
+export REPORTTIME=10
 
 
 export PATH="$PATH:$HOME/.local/bin"
@@ -78,8 +105,10 @@ export PATH="$PATH:$HOME/.local/bin"
 
 
 
+
+
 # ----------------------------------------------------------------------
-# enable "help":
+# enable help:
 # ----------------------------------------------------------------------
 # zsh's "help" (called "run-help") is not enabled by default
 
@@ -197,14 +226,6 @@ fi
 
 
 # ----------------------------------------------------------------------
-# say how long a command took if more than __ seconds:
-# ----------------------------------------------------------------------
-
-export REPORTTIME=10
-
-
-
-# ----------------------------------------------------------------------
 # make some things less dangerous:
 # ----------------------------------------------------------------------
 
@@ -238,6 +259,3 @@ zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
-
-
-
