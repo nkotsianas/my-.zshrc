@@ -51,18 +51,16 @@ case "$-" in
     *i*) ;;
       *) return ;;
 esac
-# better than "[[ -z "$PS1" ]] && return"?
-
 
 
 
 # ----------------------------------------------------------------------
-# misc options:
+# misc options
 # ----------------------------------------------------------------------
 # for some reason some of these options need to be called at the beginning
 #   for history searching to work right (TODO: figure that out)
 
-# use in vim mode
+# use command line in vim mode (-v) or emacs mode (-e)
 bindkey -v
 
 # beep on error in zle
@@ -99,16 +97,13 @@ setopt notify
 export REPORTTIME=10
 
 
-export PATH="$PATH:$HOME/.local/bin"
-
-
-
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 
 
 
 # ----------------------------------------------------------------------
-# enable help:
+# enable help
 # ----------------------------------------------------------------------
 # zsh's "help" (called "run-help") is not enabled by default
 
@@ -130,7 +125,7 @@ autoload -Uz run-help-svn
 
 
 # ----------------------------------------------------------------------
-# history:
+# history
 # ----------------------------------------------------------------------
 
 HISTFILE=~/.zsh_hist
@@ -157,17 +152,19 @@ zle -N down-line-or-beginning-search
 [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
 [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
 
-# TODO: figure out keybindings ("$key[...]" or "$terminfo[...]"??)
+# note: the "$key[...]" dictionary just maps readable values to the more obscure "$terminfo[...]" values
+#   "key" is defined in /etc/zsh/zshrc.
+#   see "man terminfo" for more
 # TODO: made [Shift+Up/Down] search global history (might need to re-import $HISTFILE? does this break local history?)
 
 
 # -- NOT USED RIGHT NOW. JUST FOR REFERENCE: --
-# like INC_APPEND_HISTORY and EXTENDED_HISTORY and all terminals share history
+# implements inc_append_histoy and extended_history and all terminals share global history
 #setopt share_history
 
 
 # ----------------------------------------------------------------------
-# prompt themes:
+# prompt themes
 # ----------------------------------------------------------------------
 
 autoload -Uz promptinit
@@ -178,7 +175,7 @@ prompt adam1
 
 
 # ----------------------------------------------------------------------
-# enable some color support:
+# enable some color support
 # ----------------------------------------------------------------------
 
 # copied from .bashrc
@@ -191,7 +188,7 @@ fi
 
 
 # ----------------------------------------------------------------------
-# ease of use aliases and functions:
+# ease of use aliases and functions
 # ----------------------------------------------------------------------
 
 alias ll="ls -halF"
@@ -213,7 +210,7 @@ alias adventure="emacs -batch -l dunnet"
 
 
 # ----------------------------------------------------------------------
-# set default editor:
+# set default editor
 # ----------------------------------------------------------------------
 
 if [[ -x `which vim 2> /dev/null` ]]; then
@@ -226,11 +223,12 @@ fi
 
 
 # ----------------------------------------------------------------------
-# make some things less dangerous:
+# make some things less dangerous
 # ----------------------------------------------------------------------
 
-# prompt for confirmation after "rm *..."
-# helps avoid "rm * o" when "rm *.o" was intended
+# makes you wait 10s and prompts when doing "rm *..."
+#   helps avoid "rm * o" when "rm *.o" was intended
+#   annoying, but GOD you'll be thankful!!
 setopt rm_star_wait
 
 # require some interactivity and verbose-ness for some "dangerous" GNU fileutils
@@ -241,18 +239,18 @@ alias chmod="chmod -v"
 alias chown="chown -v"
 alias rename="rename -v"
 
-# zmv allows mv with pattern matching (man zshcontrib)
+# zmv mimics mv but with pattern matching! ("man zshcontrib" for more)
 autoload -Uz zmv
 alias zmv="zmv -iv"
 
 
 # disable "r" (repeat last command) in zsh
-alias r="echo Sorry, \'r\' is disabled in this \"~/.zshrc\". Please use the full \'fc -e -\'. Consult \'man zshbuiltins\'."
+alias r="echo Sorry, \'r\' is disabled in this \'.zshrc\'. Please use the full \'fc -e -\'. Consult \'man zshbuiltins\'."
 
 
 
 # ----------------------------------------------------------------------
-# completion options:
+# completion options
 # ----------------------------------------------------------------------
 
 zstyle :compinstall filename '$HOME/.zshrc'
