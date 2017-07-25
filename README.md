@@ -1,2 +1,2 @@
 # my-zshrc
-The `~/.zshrc` that I have compiled since recently moving to zsh from bash!
+The `~/.zshrc` that I have compiled since recently moving from `bash` to `zsh`.
