@@ -1,8 +1,4 @@
-# Taken from
-#   https://github.com/nkotsianas/my-zshrc/blob/master/.zshrc
-#   on 2017-08-23
-
-# My ~/.zshrc file
+# My zsh config.
 #
 # Many functions taken or modified from online sources, including:
 #   https://gist.github.com/zanshin/1142739
